@@ -108,3 +108,101 @@ Fazer download da lista dos repositório e deixar disponível na máquina:
 ```apt-get dist-upgrade``` = atualiza a versão do debian.
 ```apt-get clean``` = remove todos os pacotes .deb que ele utilizou para instalar pacotes (/var/cache/apt/archives).
 ```apt-get show <nome-pacote>``` = traz informações referentes ao pacote.
+```apt-cache depends <nome-pacote>``` = visualização das dependências do pacote.
+
+
+# Gerenciamento de processos.
+
+Um processo nada mais é do que um programa em execução, ou **qualquer coisa em execução** no linux é considerado um processo.
+Por exemplo, quando você executa o comando ```ls``` ele é um processo em execução, ele foi um processo.
+
+Quando você starta um processo, você recebe o PID = Process Identification (Identificação do processo).
+
+Características comum de um processo.
+Lifetime = Tempo de execução.
+PID = Process Identification
+PPID = Parent Process Identification (processo que de origem a esse outro processo).
+UID = User Identification (usuário que startou o processo, responsável pelo processo).
+
+
+## Comando PS
+O comando ```ps``` serve para visualizar processos no Linux.
+
+O comando ```ps``` sozinho, mostra somente os processos que estão rodando em primeiro plano no terminal.
+
+```ps aux``` = parâmetro **a** mostra todos os processos, o parâmetro **x** mostra todos os processos que não estão conectados nesse terminal, o parâmetro **u** mostra o horário e o usuário responsável. 
+
+O comando ps não é dinâmico, então ele mostra os processos na hora que ele foi executado.
+
+Infos importantes nas colunas do comando ps:
+RSS = Mostra a quantidade de memória física consumida.
+
+STAT = Mostra o status do processo ex:
+- R = Runing
+- D = Uninterruptible sleep
+- S = Sleep
+- T = Stopped
+- Z = Zombie
+- W = Paging
+
+TIME = tempo de cpu do processo.
+
+COMMAND = O processo propriamente dito.
+
+O comando ```ps auxwww``` joga na tela o comando inteiro do processo.
+ 
+## Comando TOP
+Ajuda a visualizar os procesos em tempo real.
+Podemos usar o shift + > ou shift + < para navegar nos processos.
+
+## Comando HTOP
+Semelhante ao comando ```TOP``` porém melhorado.
+F1 - help
+F2 - setup (realizar ajustes)
+F3 - Search 
+F5 - Deixa em árvore.
+F7 e F8 - Diminui e aumenta a prioridade do processo.
+F9 - Kill
+
+
+## Comando Kill
+Comando utilizado para mater ou finalizar outros processos.
+```kill <pid.processo>```
+
+Como descobrir o PID de um processo: ex: ```pgrep vim```
+
+kill 15 (defalut) = encerra o processo de forma correta, do jeito que deve ser.
+Nos outros comandos precisamos colocar o sinal de "-":
+kill -9 = Força a finalização do processo.
+kill -1 = Da um reload no processo.
+
+Podemos ver outros sinal do comando ```kill``` no man.
+
+# Procurando arquivos no Linux.
+
+## Locate
+Comando utilizado para procurar algum arquivo.
+Ex:
+```locate teste.txt```
+Ele depende da utilização do **updatedb** e não procura arquivos no **/tmp**.
+
+## Find
+```find / -name <nome.arquivo>``` = find depois colocamos o diretório -name e o nome do arquvi.
+
+É sensitive case, para retirar isso usamos o parâmetro **-iname**.
+Aceita metacaracteres: ```find / -iname arqui*``` = tudo que tiver arqui no inicio do nome ele vai pegar.
+```find / -iname arquiv?``` = interrogação substitui um carcater.
+
+```find / -iname SENHAS -user root -group root -perm 640``` = Irá procurar arquivos com o nome SENHA, que o dono seja o **root**, que o grupo do arquivo seja **root** e a permissão do arquivo seja 640.
+
+```find / -iname SENHAS -type d``` = Irá procurar o arquivo SENHAS, o **-type*** quer dizer o tipo do arquivo, nesse casa o *d* seria um *diretório*.
+
+```find / -iname SENHAS -atime -30``` = Irá procurar por arquivos de nome SENHAS, tiveram as permissões modificadas nos últimos 30 dias.
+
+```find / -iname SENHAS -mtime -10``` = Irá procurar por arquivos de nome SENHAS, que foram modificados a menos de 10 dias.
+
+```find / -iname SENHAS -ctime +20``` = Vemos as permissões, arquivos modificados a mais de 20 dias.
+
+```find / -iname linux.MD -exec echo "Achei o arquivo: " {} \;``` = exec faz com que você consiga executar um comendo com a saída do **find**.
+
+
