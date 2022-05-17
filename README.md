@@ -1,4 +1,6 @@
-# Permissões avançadas e ALC Linux.
+# Estudos LPI Linux.
+
+## Permissões avançadas e ALC Linux.
 https://www.youtube.com/watch?v=tT69ipXOzfc
 
 ## Comando LS, ele nos trás uma resposta com 10 caracteres na primeira coluna:
@@ -261,7 +263,6 @@ Agora precisamos dar permissão de execução nesses 3 arquivos. Para não ter q
 ### FACILIDADE.PRIORIDADE
 
 Facilidade = Tipo de serviço.
-Prioridade = São os leveis das mensagens
 
 | FACILIDADE | DEFINIÇÃO |
 | --- | --- |
@@ -280,6 +281,8 @@ Prioridade = São os leveis das mensagens
 |**user** | Mensagens geréricas de nível usuário. |
 |**uucp** | Subsistema de UUCP. |
 |**"*"** | Confere com todas as facilidades. |
+
+Prioridade = São os leveis das mensagens
 
 | PRIORIDADE | DEFINIÇÃO |
 | --- | --- |
