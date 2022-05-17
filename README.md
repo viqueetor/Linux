@@ -150,6 +150,8 @@ TIME = tempo de cpu do processo.
 COMMAND = O processo propriamente dito.
 
 O comando ```ps auxwww``` joga na tela o comando inteiro do processo.
+
+```ps -ef``` = Parâmetro -ef, -e = all process, -f = full-format, including command lines.
  
 ## Comando TOP
 Ajuda a visualizar os procesos em tempo real.
@@ -206,3 +208,86 @@ Aceita metacaracteres: ```find / -iname arqui*``` = tudo que tiver arqui no inic
 ```find / -iname linux.MD -exec echo "Achei o arquivo: " {} \;``` = exec faz com que você consiga executar um comendo com a saída do **find**.
 
 
+# Comandos que devemos conhecer no Linux.
+
+## Comando df
+
+```df -h``` = Mostra as partições e dispositivos adicionados na máquina e suas informações.
+```dh -i``` = i = **inodes**, são número limitados de "gavetas" no nosso disco que podemos guardar coisas. Arquivos com 0bytes também ocupam **inodes**. Caso tenha algum problema com criação de arquivos, mesmo com espaço em disco liberado, devemos verificar os **inodes**.
+
+## Comando netstat
+Mostram as portas do servidor que estão abertas, em listen. Qual IP que determinada porta está bindando, conseguimos ver qual programa, processo, está sendo executado naquela porta.
+
+```netstat -atunp``` = os parâmetros do **atunp** a = all, t = tcp, u = udp, n = don't resolve names, p = PID. Sendo assim uma saída bem completa.
+
+## Comando du
+Disk used. Verifica o quanto está sendo utilizado de disco.
+
+Podemos usar da seguinte forma:
+```du -sh *``` = para verificar quanto está sendo usado de disco em todo o repositório que você executa o comando. Parâmetro -s = summaryze mostra o total de cada argumento no caso diretório abaixo do que você está executando, -h human-readable joga em formato humando para leitura ex: 1K, 234M, 23G.
+
+## Comando history
+Joga o histórico de comandos.
+
+Podemos utilizar de várias formas:
+```history | tail``` = mostra as últimas 10 linhas, no caso os últimos 10 comandos.
+
+Podemos utilizar o ```ctrl + r``` conseguimos fazer buscas no history.
+
+## Chets
+
+Ex: vamos criar 3 arquivos no repositório.
+```touch teste1 teste2 teste3```
+Agora precisamos dar permissão de execução nesses 3 arquivos. Para não ter que escrever o nome de cada arquivo novamente, podemos utilizar o comando:
+```chmod +x !*``` = o !* trás todos os argumentos do último comando, que seria o nome dos 3 arquivos. Assim dando a permissão para os 3 de vez.
+
+```alt + T``` = altera a ordem dos argumentos do comando (atalho do bash).
+
+
+# Gerenciamento de logs Linux.
+
+```cd /var/log/``` = local onde o sistema armazena os logs.
+*auth.log* = logs de autenticação.
+*daemon.log* = logs de serviços, daemon.
+*kern.log* = kernel do linux.
+*user.log* = logs de usuário.
+*syslog* = pega praticamente tudo do sistema.
+*messages* = semelhante ao *syslog* tudo que for mensagem vai pra ele.
+
+```/etc/rsyslog.conf``` = arquivo de configuração de logs.
+```module(load="imuxsock")``` = suporte de logs do sistema local.
+```module(load="imklog" permitnonkernelfacility="on")``` = suporte de logs do kernel.
+
+### FACILIDADE.PRIORIDADE
+
+Facilidade = Tipo de serviço.
+Prioridade = São os leveis das mensagens
+
+| FACILIDADE | DEFINIÇÃO |
+| --- | --- |
+| **auth** | Mensagens de segurança/autorização. |
+| **authpriv** | Mensagens de segurança/autorização (privativas). |
+| **cron** | Daemons de agendamento (cront e at). |
+|**daemon** | Outros daemons do sistema que não possuem facilidades específicas. |
+|**ftp** | Daemon de ftp do sistema. |
+|**kern** | Mensagens do kernel. |
+|**lpr** | Subsistema de impressão. |
+|**local10 a local17** | Reservados para uso local. |
+|**mail** | Subsistema de e|mail. |
+|**news** | Subsistema de notícias da USENET. |
+|**security** | Sinônimo para a facilidade auth (evite usa-la). |
+|**syslog** | Mensagens internas geradas peo syslogd. |
+|**user** | Mensagens geréricas de nível usuário. |
+|**uucp** | Subsistema de UUCP. |
+|**"*"** | Confere com todas as facilidades. |
+
+| PRIORIDADE | DEFINIÇÃO |
+| --- | --- |
+| **emerg** | Emergência |
+| **alert** | Alerta |
+| **crit** | Crítico |
+| **err** | Error |
+| **warn** | Warning |
+| **notice** | Notice |
+| **info** | Informação | 
+| **debug** | Debug |
