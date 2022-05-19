@@ -294,3 +294,34 @@ Prioridade = São os leveis das mensagens
 | **notice** | Notice |
 | **info** | Informação | 
 | **debug** | Debug |
+
+Ex de configuração de arquivos de logs.
+```/etc/rsyslog.conf``` ou ```/etc/rsyslog.d/50-default.conf ``` = Podemos configurar em um desses dois arquivos, vai depender do sistema.
+Vamos adicionar os arquivos na parte de arquivos de log padrão.
+
+Ex: 
+```*.*            /var/log/centraldelogs.log``` = Aqui está sendo criado um arquivo com nome centraldelogs, e que irá receber todas as facilidades e todas as prioridade, em teses receberá todos os logs do sistema.
+Após adicionar arquivos novos, precisamos restartar o serviço de logs: ```systemctl restart rsyslog.service```
+
+Quando estivermos com dúvidas sobre o que contém em cada arquivo de logs, podemos ir na fonte (arquivos citados anteriormente em /etc/) e verificar o que está logando neles.
+
+## Journalctl
+
+Ferramenta para consulta de logs do journal. Journald é o serviço do systemd responsável pelo gerenciamento de logs, faz logs de tudo que for uma unit no systemd. Faz também os logs do kernel.
+
+```journalctl --utc``` = joga os logs com o timezone utc.
+
+```journalctl --since "2 hour ago"``` = pega os logs das últimas 2 horas.
+
+```journalctl --since "2 days ago" --until "2 hour ago"``` = pega os logs de 2 dias atrás até 2 horas atrás.
+
+```journalctl --since "2022-05-10 01:00:00" --until "2022-05-19 12:00:00``` = trazendo logs em horas exatas.
+
+```journalctl -u ssh``` = Verificando logs através da Unit, nesse caso logs do ssh.
+
+```journalctl -u ssh -r``` = Utilizando o parâmetro **r** = revert, coloca os logs mais recentes primeiro. Utilizado quando queremos ver os logs mais recentes.
+
+```journalctl -u ssh -p "err"``` = Utilizando o parâmetro **p** = priority. Irá pegar apenas os logs que tem a prioridade error.
+
+
+## LVM
